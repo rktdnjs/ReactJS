@@ -1,41 +1,33 @@
-import Button from "./Button";
-import styles from "./App.module.css"
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function App() {
-  const [counter, setValue] = useState(0);
-  const [keyword, setKeyword] = useState("");
-  const onClick = () => {
-    setValue((prev) => prev + 1);
-  }
-
+  const [toDo, setToDo] = useState("");
+  const [toDos, setToDos] = useState([]);
   const onChange = (event) => {
-    setKeyword(event.target.value);
+    setToDo(event.target.value)
   }
-
-  useEffect(() => {
-    console.log("I run only once.");
-  }, []);
-
-  useEffect(()=> {
-      console.log("I run when keyword changes", keyword);
-  }, [keyword]);
-
-  useEffect(()=> {
-      console.log("I run when counter changes", counter);
-  }, [counter]);
-
-  useEffect(()=> {
-    console.log("I run when counter & keyword changes");
-}, [counter, keyword]);
-
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if(toDo === "") {
+      return;
+    }
+    setToDo("");
+    setToDos((currentArray) => [toDo, ...currentArray]);
+  }
+  // console.log(toDos);
   return (
     <div>
-      <input value={keyword} onChange={onChange} type="text" placeholder="Search here..."/>
-      <h1>{counter}</h1>
-      <button onClick={onClick}>클릭해주세용</button>
+      <h1>해야할 일 목록 : ({toDos.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input value={toDo} onChange={onChange} type="text" placeholder="할 일을 적으세요.."/>
+        <button>Add To Do</button>
+      </form>
+      <hr/>
+      <ul>
+      {toDos.map((item, index) => <li key={index}>{item}</li>)}
+      </ul>
     </div>
-  );
+  )
 }
 
 export default App; 
