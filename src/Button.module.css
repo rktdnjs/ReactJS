@@ -1,0 +1,5 @@
+/* 이 스타일을 Button.js에 import 시켜줄것이다 */
+.btn {
+    color: white;
+    background-color: tomato;
+}
