@@ -13,7 +13,7 @@ function MovieDetail({url, year, rating, coverImg, title, summary, genres}) {
                     }
                 </ul>
                 <p>Year : {year}</p>
-                <p>Summary : {summary}</p>
+                <p>Summary : {summary.length > 235 ? `${summary.slice(0, 235)}...` : summary}</p>
                 <p>Rating : {rating} stars</p>
         </div>
     );
